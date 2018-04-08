@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.media.*?>
 <?import java.lang.*?>
@@ -9,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 
-<AnchorPane prefHeight="12.0" prefWidth="37.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MagicFXController">
+<AnchorPane prefHeight="720.0" prefWidth="985.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MagicFXController">
    <children>
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
@@ -17,6 +18,15 @@
             <Canvas fx:id="canvas2" height="720.0" width="985.0" />
          </children>
       </HBox>
-      <Slider fx:id="volumeSlider" />
+      <AnchorPane prefHeight="720.0" prefWidth="985.0">
+         <children>
+            <Button fx:id="setting" contentDisplay="GRAPHIC_ONLY" layoutX="860.0" layoutY="34.0" mnemonicParsing="false" prefHeight="60.0" prefWidth="70.0" styleClass="setting-button" stylesheets="@MagicFX.css">
+               <effect>
+                  <DropShadow />
+               </effect>
+            </Button>
+            <Slider fx:id="volumeSlider" layoutX="714.0" layoutY="141.0" prefHeight="32.0" prefWidth="250.0" />
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

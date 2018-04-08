@@ -16,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
@@ -29,9 +30,6 @@ public class MagicFXController implements Initializable{
 	public int width;
 	public int height;
 	
-//	private Box boxcontrol = new Box(50,50);
-//	private Integer[] boxInitPos=new Integer[9];
-	private SoundManager soundplayer;
 	private GraphicsContext gc1,gc2;
 	private Image BACKGROUND;
 	private WritableImage wImage;
@@ -39,20 +37,29 @@ public class MagicFXController implements Initializable{
     private String musicFile = "res/Theme.mp3";
     private MediaPlayer mediaPlayer;
     private Media sound;
-    
+    public Image circle;
 	@FXML
 	private Canvas canvas1;
 	@FXML
 	private Canvas canvas2;
 	@FXML
 	private Slider volumeSlider;
+	@FXML
+	private Button setting = new Button("Setting");
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		width=(int) canvas1.getWidth();
-		height=(int) canvas1.getHeight();
+		width = (int) canvas1.getWidth();
+		height = (int) canvas1.getHeight();
+		try {
+			circle = new Image(new FileInputStream("res/setting.png"));
+			BACKGROUND=new Image(new FileInputStream("res/Wizard_Castle.jpg"));
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		//canvas2=new Canvas(canvas.getWidth(),canvas.getHeight());
-		wImage=new WritableImage(width,height);
+		wImage = new WritableImage(width,height);
 		
 		gc1 = canvas1.getGraphicsContext2D();
 		gc1.setStroke(Color.RED);
@@ -61,14 +68,6 @@ public class MagicFXController implements Initializable{
         gc2 = canvas2.getGraphicsContext2D();
 		gc2.setStroke(Color.RED);
         gc2.setLineWidth(5);
-        
-//        EventHandler event = new EventHandler();
-        
-        try {
-			BACKGROUND=new Image(new FileInputStream("res/Wizard_Castle.jpg"));
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
         
         gc1.drawImage(BACKGROUND, 0, 0);
         playSound();
@@ -117,7 +116,9 @@ public class MagicFXController implements Initializable{
 		return volumeSlider;
 	}
 	
-	/* Fix later*/
+	/* 
+	 * Fix later
+	 */
 	public void playSound() 
 	{
 	      sound = new Media(new File(musicFile).toURI().toString());
