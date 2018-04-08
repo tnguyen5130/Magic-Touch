@@ -31,6 +31,9 @@ public class MagicFXController implements Initializable{
 	
 	GraphicsContext gc1,gc2;
 	Image BACKGROUND;
+	Image background2;
+	Image Click;
+	Image SetIcon;
 	private WritableImage wImage;
 	private File file= new File("res/white.png");
 	
@@ -49,6 +52,15 @@ public class MagicFXController implements Initializable{
 		gc2.setStroke(Color.RED);
         gc2.setLineWidth(5);
         
+        
+        try {
+			background2=new Image(new FileInputStream("res/rsz_background2.jpg"));
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
         try {
 			BACKGROUND=new Image(new FileInputStream("res/Wizard_Castle.jpg"));
 			
@@ -57,7 +69,19 @@ public class MagicFXController implements Initializable{
 			e.printStackTrace();
 		}
         
-        gc1.drawImage(BACKGROUND, 0, 0);
+        try {
+			Click=new Image(new FileInputStream("res/click.png"));
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
+      
+        
+        gc1.drawImage(background2, 1, 0);
+        gc1.drawImage(Click, 10, 450);
+      
 		
 	}
 	
@@ -70,6 +94,8 @@ public class MagicFXController implements Initializable{
 		
 		gc2.lineTo(event.getX(), event.getY());
 		gc2.stroke();
+		System.out.println(event.getX());
+		System.out.println(event.getY());
 		
 		System.out.println("drag");
 	}
@@ -83,10 +109,12 @@ public class MagicFXController implements Initializable{
 		gc1.beginPath();
 		gc1.moveTo(event.getX(), event.getY());
 		gc1.stroke();
+		gc1.drawImage(BACKGROUND, 0, 0);
 		
 		gc2.beginPath();
 		gc2.moveTo(event.getX(), event.getY());
 		gc2.stroke();
+		
 	}
 	
 	@FXML
