@@ -52,6 +52,7 @@ public class MagicFXController implements Initializable{
 		gc2.setStroke(Color.RED);
         gc2.setLineWidth(5);
         
+        Matrix.setUpMatrix();
         
         try {
 			background2=new Image(new FileInputStream("res/rsz_background2.jpg"));
@@ -94,10 +95,15 @@ public class MagicFXController implements Initializable{
 		
 		gc2.lineTo(event.getX(), event.getY());
 		gc2.stroke();
-		System.out.println(event.getX());
-		System.out.println(event.getY());
 		
-		System.out.println("drag");
+		if((int)event.getX()>20 && (int)event.getX()<width-20 && (int)event.getY()>20 && (int)event.getY()<height-20 ) {
+			Matrix.fillOne((int)event.getY(), (int)event.getX());
+		}
+		
+		
+//		System.out.println(event.getX());
+//		System.out.println(event.getY());
+		
 	}
 	
 	@FXML
@@ -128,6 +134,10 @@ public class MagicFXController implements Initializable{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		Matrix.resizeMatrix();
+		Matrix.display();
+		Matrix.setUpMatrix();
 		
 		System.out.println("release");
 		gc1.drawImage(BACKGROUND, 0, 0);
