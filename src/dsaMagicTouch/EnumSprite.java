@@ -1,4 +1,4 @@
-package application;
+package dsaMagicTouch;
 
 public enum EnumSprite {
 	WIDTH(985),

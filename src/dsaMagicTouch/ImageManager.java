@@ -1,4 +1,4 @@
-package application;
+package dsaMagicTouch;
 
 public interface ImageManager{
 	void render();
