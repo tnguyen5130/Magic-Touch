@@ -1,4 +1,4 @@
-package application;
+package dsaMagicTouch;
 
 import java.util.ArrayList;
 

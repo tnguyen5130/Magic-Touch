@@ -1,4 +1,4 @@
-package application;
+package dsaMagicTouch;
 
 public abstract class Position {
 	public Float xPos, yPos;
