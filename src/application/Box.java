@@ -1,4 +1,4 @@
-package dsaMagicTouch;
+package application;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
