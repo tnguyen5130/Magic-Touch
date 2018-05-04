@@ -5,14 +5,15 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
 
+import javafx.animation.AnimationTimer;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.embed.swing.SwingFXUtils;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
@@ -31,7 +32,6 @@ public class MagicFXController implements Initializable {
 
 	public int width;
 	public int height;
-
 	private GraphicsContext gc1, gc2;
 	private Image BACKGROUND;
 	private WritableImage wImage;
@@ -39,6 +39,7 @@ public class MagicFXController implements Initializable {
 	private String musicFile = "res/Theme.mp3";
 	private MediaPlayer mediaPlayer;
 	private Media sound;
+	private Box tempBox;
 	// Save image //
 	@FXML
 	private Canvas canvas1;
@@ -72,8 +73,9 @@ public class MagicFXController implements Initializable {
 		gc2.setLineWidth(5);
 
 		gc1.drawImage(BACKGROUND, 0, 0);
-		playSound();
-		adjustVolume();
+//		playSound();
+//		adjustVolume();
+		System.out.print("qwerty");
 	}
 
 	@FXML
@@ -114,18 +116,11 @@ public class MagicFXController implements Initializable {
 		gc2.clearRect(0, 0, canvas2.getWidth(), canvas2.getHeight());
 	}
 	
-	@FXML
-	public void handleSettingButton(ActionEvent event) {
-	}
-	/*
-	 *    Sound player
-	 */
 	public void playSound() {
 		sound = new Media(new File(musicFile).toURI().toString());
 		mediaPlayer = new MediaPlayer(sound);
 		mediaPlayer.play();
 	}
-
 	public void adjustVolume() {
 		volumeSlider.setValue(mediaPlayer.getVolume() * 100);
 		volumeSlider.valueProperty().addListener(new InvalidationListener() {

@@ -2,49 +2,73 @@ package application;
 
 import java.util.ArrayList;
 
+import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.Canvas;
 
-public class EventHandler implements ImageManager {
-	public ArrayList<Box> box = new ArrayList<>();
-	private Box tempBox;
-	private Integer[] stopPos = new Integer[5];
-	private Canvas canvas;
-	public void play() 
-	{
-		stopPos[0]=195;
-		stopPos[1]=295;
-		stopPos[2]=395;
-		stopPos[3]=495;
-		stopPos[4]=595;
+public class EventHandler {
+	private ArrayList<Box> box = new ArrayList<Box>();
+	private ArrayList<ArrayList<String>> j = new ArrayList<ArrayList<String>>();
+	private ArrayList<String> c = new ArrayList<String>(24);
+	public Box tempBox;
+	public void update() {
+		final long startNanoTime = System.nanoTime();
+		 
+	    new AnimationTimer()
+	    {
+	        public void handle(long currentNanoTime)
+	        {
+	            double t = (currentNanoTime - startNanoTime) / 1000000000.0; 
+	    		for(int i=0; i<box.size(); i++)
+	    		{
+	    			tempBox = box.get(i);
+	    		}
+	        }
+	    }.start();
+	}
+	
+	public void render(Canvas canvas) {
 		
-		for(int i=0; i<box.size(); i++) 
-		{
-			tempBox = box.get(i);
-			
-			if(tempBox.yPos <stopPos[tempBox.getRandomInt()])
-				tempBox.yPos+=1;
-		}
+	}
+	public void remove(Box b) {box.remove(b);}
+	
+	public void add() {
+		c.add("A");
+		c.add("B");
+		c.add("C");
+		c.add("D");
+		c.add("E");
+		c.add("F");
+		c.add("G");
+		c.add("H");
+		c.add("I");
+		c.add("J");
+		c.add("K");
+		c.add("L");
+		c.add("M");
+		c.add("N");
+		c.add("O");
+		c.add("P");
+		c.add("Q");
+		c.add("R");
+		c.add("S");
+		c.add("T");
+		c.add("U");
+		c.add("V");
+		c.add("W");
+		c.add("X");
+		c.add("Y");
+		c.add("Z");
+		j.add(c);
 	}
 	
-	@Override
-	public void render() 
-	{
-		for(int i=0; i<box.size();i++)
+	public void checkGame() {
+		add();
+		for (int i = 0 ; i< c.size() ; i++)
 		{
-			tempBox = box.get(i);
-			tempBox.drawBox(canvas);;
+			if(c.contains("A"))
+				{
+					remove(tempBox);
+				}
 		}
 	}
-	
-	public ArrayList<Box> getBox() {
-		return box;
-	}
-
-	public void setBox(ArrayList<Box> box) {
-		this.box = box;
-	}
-
-	public void addBox(Box b)    {box.add(b);}
-	public void removeBox(Box b) {box.remove(b);}
 }
-

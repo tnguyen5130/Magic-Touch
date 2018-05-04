@@ -1,31 +1,31 @@
 package application;
 
 public abstract class Position {
-	public Float xPos, yPos;
+	public Double xPos, yPos;
 
 	/**
 	 * Construct Position
 	 * @param xPos
 	 * @param yPos
 	 */
-	public Position(Float xPos, Float yPos) {
+	public Position(Double xPos, Double yPos) {
 		this.xPos = xPos;
 		this.yPos = yPos;
 	}
 
-	public Float getxPos() {
+	public Double getxPos() {
 		return xPos;
 	}
 
-	public Float getyPos() {
+	public Double getyPos() {
 		return yPos;
 	}
 
-	public void setxPos(Float xPos) {
+	public void setxPos(Double xPos) {
 		this.xPos = xPos;
 	}
 
-	public void setyPos(Float yPos) {
+	public void setyPos(Double yPos) {
 		this.yPos = yPos;
 	}
 }
