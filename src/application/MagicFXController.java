@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import javax.imageio.ImageIO;
 
@@ -40,6 +43,7 @@ public class MagicFXController implements Initializable {
 	private MediaPlayer mediaPlayer;
 	private Media sound;
 	private Box tempBox;
+	private ScheduledExecutorService timer;
 	// Save image //
 	@FXML
 	private Canvas canvas1;
@@ -57,11 +61,13 @@ public class MagicFXController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		width = (int) canvas1.getWidth();
 		height = (int) canvas1.getHeight();
+		
 		try {
 			BACKGROUND = new Image(new FileInputStream("res/background.jpg"));
 		} catch (FileNotFoundException e1) {
 			e1.printStackTrace();
 		}
+		
 		wImage = new WritableImage(width, height);
 
 		gc1 = canvas1.getGraphicsContext2D();
@@ -76,6 +82,23 @@ public class MagicFXController implements Initializable {
 //		playSound();
 //		adjustVolume();
 		System.out.print("qwerty");
+		
+		Runnable update=new Runnable() {
+			@Override
+			public void run() {
+				update();
+			}
+		};
+		Runnable render=new Runnable() {
+			@Override
+			public void run() {
+				render();
+			}
+		};
+		timer=Executors.newSingleThreadScheduledExecutor();
+		timer.scheduleAtFixedRate(update, 0, 10, TimeUnit.MILLISECONDS);
+		timer.scheduleAtFixedRate(render, 0, 10, TimeUnit.MILLISECONDS);
+
 	}
 
 	@FXML
@@ -85,8 +108,6 @@ public class MagicFXController implements Initializable {
 
 		gc2.lineTo(event.getX(), event.getY());
 		gc2.stroke();
-
-		System.out.println("drag");
 	}
 
 	@FXML
@@ -129,5 +150,13 @@ public class MagicFXController implements Initializable {
 				mediaPlayer.setVolume(volumeSlider.getValue() / 100);
 			}
 		});
+	}
+	
+	public void update() {
+		System.out.println("123");
+	}
+	
+	public void render() {
+		System.out.println("asdfjlasdkfj");
 	}
 }

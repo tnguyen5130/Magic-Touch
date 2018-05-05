@@ -19,7 +19,7 @@ public class Main extends Application {
 			primaryStage.setScene(scene);
 			primaryStage.setResizable(false);
 			primaryStage.setTitle("Magic Wand");
-			primaryStage.getIcons().add(new Image(Main.class.getResourceAsStream("icon/icon.png")));
+			primaryStage.getIcons().add(new Image(Main.class.getResourceAsStream("res/icon/icon.png")));
 			primaryStage.show();
 
 		} catch (Exception e) {
