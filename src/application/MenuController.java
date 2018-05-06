@@ -27,7 +27,7 @@ public class MenuController {
     	System.out.println("pressed");
     	AnchorPane pane;
 		try {
-			pane = FXMLLoader.load((getClass().getResource("GamePlay.fxml")));
+			pane = FXMLLoader.load((getClass().getResource("MagicFX.fxml")));
 			rootpane.getChildren().setAll(pane);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
