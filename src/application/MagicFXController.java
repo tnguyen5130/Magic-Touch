@@ -1,4 +1,5 @@
 package application;
+import Traindata.*;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -30,6 +31,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Box;
 
 public class MagicFXController implements Initializable {
 
@@ -43,6 +45,7 @@ public class MagicFXController implements Initializable {
 	private MediaPlayer mediaPlayer;
 	private Media sound;
 	private Box tempBox;
+	SVMTrainData mySVM=new SVMTrainData();
 	private ScheduledExecutorService timer;
 	// Save image //
 	@FXML
@@ -75,13 +78,12 @@ public class MagicFXController implements Initializable {
 		gc1.setLineWidth(5);
 
 		gc2 = canvas2.getGraphicsContext2D();
-		gc2.setStroke(Color.RED);
-		gc2.setLineWidth(5);
+		gc2.setStroke(Color.BLACK);
+		gc2.setLineWidth(15);
 
 		gc1.drawImage(BACKGROUND, 0, 0);
 //		playSound();
 //		adjustVolume();
-		System.out.print("qwerty");
 		
 		Runnable update=new Runnable() {
 			@Override
@@ -112,12 +114,10 @@ public class MagicFXController implements Initializable {
 
 	@FXML
 	public void onMousePressed(MouseEvent event) {
-		System.out.println("press");
-
 		gc1.beginPath();
 		gc1.moveTo(event.getX(), event.getY());
 		gc1.stroke();
-		System.out.print("Helo");
+		
 		gc2.beginPath();
 		gc2.moveTo(event.getX(), event.getY());
 		gc2.stroke();
@@ -132,7 +132,11 @@ public class MagicFXController implements Initializable {
 			e.printStackTrace();
 		}
 
-		System.out.println("release");
+		Matrix.setUpMatrix();
+		Matrix.resizeMatrix();
+		mySVM.createHOG(Matrix.mat3);
+//		System.out.println(mySVM.predict());
+		
 		gc1.drawImage(BACKGROUND, 0, 0);
 		gc2.clearRect(0, 0, canvas2.getWidth(), canvas2.getHeight());
 	}

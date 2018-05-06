@@ -1,5 +1,5 @@
 package application;
-
+import Gameinfo.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
