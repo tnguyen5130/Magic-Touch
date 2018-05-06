@@ -89,7 +89,7 @@ public class MagicFXController implements Initializable {
     
     gc1.drawImage(BACKGROUND, 0, 0);
      
-    AnimationTimer timer = new AnimationTimer() {
+    AnimationTimer timer1 = new AnimationTimer() {
 			
 			@Override
 			public void handle(long arg0) {
@@ -99,7 +99,7 @@ public class MagicFXController implements Initializable {
 				}
 			}
 		};
-		timer.start();
+		timer1.start();
 		
 //		playSound();
 //		adjustVolume();
