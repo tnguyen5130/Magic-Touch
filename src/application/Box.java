@@ -5,12 +5,14 @@ import java.io.FileNotFoundException;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.image.Image;
+import javafx.scene.text.Text;
 
 public class Box extends Position implements Object{
-	public int value=1;
+	public Integer value=10;
 	public double xPos,yPos;
 	public Image boxpng;
 	public double speed;
+	public String valueText;
 	
 	public Box(double xPos, double yPos) {
 		super(xPos, yPos);
@@ -24,13 +26,15 @@ public class Box extends Position implements Object{
 			e.printStackTrace();
 		}
 		
-//		value=(int)Math.random()*10;
+		value=(int)(Math.random()*10);
 		xPos=Math.random()*985-50;
+		valueText=value.toString();
 	}
 	
 	@Override
 	public void draw(Canvas canvas) {
 		canvas.getGraphicsContext2D().drawImage(boxpng, xPos,yPos, boxpng.getWidth(), boxpng.getHeight());
+		canvas.getGraphicsContext2D().fillText(valueText, xPos+10, yPos+52);
 	}
 
 	public void move() {
