@@ -9,12 +9,16 @@ import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
 
+import com.sun.org.apache.xerces.internal.impl.dv.xs.AnyURIDV;
+
+import javafx.animation.AnimationTimer;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
@@ -25,6 +29,8 @@ public class GamePlayController implements Initializable{
 	private Canvas canvas1;
 	@FXML
 	private Canvas canvas2;
+    @FXML
+    private ImageView wizard;
 	
 	public int width;
 	public int height;
@@ -69,7 +75,19 @@ public class GamePlayController implements Initializable{
         
         gc1.drawImage(BACKGROUND, 1, 0);
      
-      
+        AnimationTimer timer = new AnimationTimer() {
+			
+			@Override
+			public void handle(long arg0) {
+				// TODO Auto-generated method stub
+				wizard.setX(wizard.getX()+2);
+				if ( wizard.getX()== 600 ) {
+					wizard.setX(0);
+					
+				}
+			}
+		};
+		timer.start();
 		
 	}
 	
