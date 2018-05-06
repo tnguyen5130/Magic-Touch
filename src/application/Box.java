@@ -44,7 +44,7 @@ public class Box extends Position implements Object{
 	@Override
 	public void draw(Canvas canvas) {
 		init();
-		canvas.getGraphicsContext2D().drawImage(boxpng, Math.random() * 900 + 50, 50.00, boxpng.getWidth(), boxpng.getHeight());
+		canvas.getGraphicsContext2D().drawImage(boxpng, this.xPos, this.yPos, boxpng.getWidth(), boxpng.getHeight());
 	}
 
 	public void checkFall() {
