@@ -21,7 +21,7 @@ public class Box extends Position implements Object{
 
 	private void init() {
 		try {
-			boxpng = new Image(new FileInputStream("res/droplet.png"));
+			boxpng = new Image(new FileInputStream("res/test1.gif"));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -34,7 +34,7 @@ public class Box extends Position implements Object{
 	@Override
 	public void draw(Canvas canvas) {
 		canvas.getGraphicsContext2D().drawImage(boxpng, xPos,yPos, boxpng.getWidth(), boxpng.getHeight());
-		canvas.getGraphicsContext2D().fillText(valueText, xPos+10, yPos+52);
+		canvas.getGraphicsContext2D().fillText(valueText, xPos+35, yPos+28);
 	}
 
 	public void move() {

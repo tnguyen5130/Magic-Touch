@@ -102,7 +102,7 @@ public class MagicFXController implements Initializable {
     gc2.setStroke(Color.BLACK);
 		gc2.setLineWidth(15);
 
-		gc1.setFont(Font.font("Consolas",40));
+		gc1.setFont(Font.font("Consolas",30));
 
     Matrix.setUpMatrix();
     
