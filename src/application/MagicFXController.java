@@ -8,11 +8,13 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import javax.imageio.ImageIO;
+import javax.swing.plaf.synth.SynthSpinnerUI;
 
 import javafx.animation.AnimationTimer;
 import javafx.beans.InvalidationListener;
@@ -45,8 +47,14 @@ public class MagicFXController implements Initializable {
 	private MediaPlayer mediaPlayer;
 	private Media sound;
 	private Box tempBox;
+	private int value=10;
 	SVMTrainData mySVM=new SVMTrainData();
 	private ScheduledExecutorService timer;
+	
+	private EventController event=new EventController();
+	private int delayTimeBox;
+	private double count=0;
+	
 	// Save image //
 	@FXML
 	private Canvas canvas1;
@@ -81,7 +89,7 @@ public class MagicFXController implements Initializable {
 		gc2.setStroke(Color.BLACK);
 		gc2.setLineWidth(15);
 
-		gc1.drawImage(BACKGROUND, 0, 0);
+		
 //		playSound();
 //		adjustVolume();
 		
@@ -97,10 +105,18 @@ public class MagicFXController implements Initializable {
 				render();
 			}
 		};
+		Runnable getKey=new Runnable() {
+			@Override
+			public void run() {
+				getKey();
+			}
+		};
 		timer=Executors.newSingleThreadScheduledExecutor();
 		timer.scheduleAtFixedRate(update, 0, 10, TimeUnit.MILLISECONDS);
 		timer.scheduleAtFixedRate(render, 0, 10, TimeUnit.MILLISECONDS);
+//		timer.scheduleAtFixedRate(getKey, 0, 10, TimeUnit.MILLISECONDS);
 
+		delayTimeBox=(int)(Math.random()*500);
 	}
 
 	@FXML
@@ -157,10 +173,21 @@ public class MagicFXController implements Initializable {
 	}
 	
 	public void update() {
-		System.out.println("123");
+		event.fallBoxes();
+		count++;
+		if(count==delayTimeBox) {
+			event.addBox(Math.random()*935, 0);
+			delayTimeBox=(int)(Math.random()*500);
+			count=0;
+			
+		}
+		event.checkBoxApearence(this.value);
+		System.out.println(event.box.size());
+		
 	}
 	
 	public void render() {
-		System.out.println("asdfjlasdkfj");
+		gc1.drawImage(BACKGROUND, 0, 0);
+		event.drawBoxes(canvas1);
 	}
 }
