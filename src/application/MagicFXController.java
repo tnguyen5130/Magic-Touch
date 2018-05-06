@@ -6,7 +6,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 import java.util.concurrent.Executors;
@@ -16,10 +15,10 @@ import java.util.concurrent.TimeUnit;
 import javax.imageio.ImageIO;
 import javax.swing.plaf.synth.SynthSpinnerUI;
 
-import javafx.animation.AnimationTimer;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
@@ -30,13 +29,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.InputEvent;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Box;
-import javafx.scene.text.Font;
+
 import javafx.scene.text.Text;
 
 public class MagicFXController implements Initializable {
@@ -50,9 +50,11 @@ public class MagicFXController implements Initializable {
 	private String musicFile = "res/Theme.mp3";
 	private MediaPlayer mediaPlayer;
 	private Media sound;
+
 	private Box tempBox;
 	private String value="";
 	SVMTrainData mySVM=new SVMTrainData();
+
 	private ScheduledExecutorService timer;
 	
 	private EventController event=new EventController();
@@ -78,6 +80,7 @@ public class MagicFXController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		width = (int) canvas1.getWidth();
 		height = (int) canvas1.getHeight();
+		eventController = new EventController();
 		
 		try {
 			BACKGROUND = new Image(new FileInputStream("res/background.jpg"));
@@ -92,10 +95,12 @@ public class MagicFXController implements Initializable {
 		gc1.setLineWidth(5);
 
 		gc2 = canvas2.getGraphicsContext2D();
+
 		gc2.setStroke(Color.BLACK);
 		gc2.setLineWidth(15);
 
 		gc1.setFont(Font.font("Consolas",40));
+
 //		playSound();
 //		adjustVolume();
 		
@@ -180,6 +185,7 @@ public class MagicFXController implements Initializable {
 	}
 	
 	public void update() {
+
 		event.fallBoxes();
 		count++;
 		if(count==delayTimeBox) {
@@ -195,4 +201,28 @@ public class MagicFXController implements Initializable {
 		gc1.drawImage(BACKGROUND, 0, 0);
 		event.drawBoxes(canvas1);
 	}
+
+// 		canvas2.setOnKeyPressed(new EventHandler<KeyEvent>() {
+// 			@Override
+// 			public void handle(KeyEvent event) {
+// 				switch(event.getCode())
+// 				{
+// 				case DIGIT1:
+// 					eventController.remove(eventController.getOb1());
+// 					System.out.println("KeyPress "+KeyCode.DIGIT1.toString());
+// 					break;
+// 				case DIGIT2:
+// 					eventController.remove(eventController.getOb2());
+// 					System.out.println("KeyPress "+KeyCode.DIGIT2.toString());
+// 					break;
+// 				case DIGIT3:
+// 					eventController.remove(eventController.getOb3());
+// 					System.out.println("KeyPress "+KeyCode.DIGIT3.toString());
+// 					break;
+// 				default:
+// 					break;
+// 				}
+// 			}
+// 		}
+// 		);
 }
