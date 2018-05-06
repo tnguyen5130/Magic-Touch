@@ -15,6 +15,7 @@ import java.util.concurrent.TimeUnit;
 import javax.imageio.ImageIO;
 import javax.swing.plaf.synth.SynthSpinnerUI;
 
+import javafx.animation.AnimationTimer;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.embed.swing.SwingFXUtils;
@@ -27,6 +28,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyCode;
@@ -61,6 +63,8 @@ public class MagicFXController implements Initializable {
 	private int delayTimeBox;
 	private double count=0;
 	
+  @FXML
+    private ImageView wizard;
 	// Save image //
 	@FXML
 	private Canvas canvas1;
@@ -80,7 +84,6 @@ public class MagicFXController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		width = (int) canvas1.getWidth();
 		height = (int) canvas1.getHeight();
-		event = new EventController();
 		
 		try {
 			BACKGROUND = new Image(new FileInputStream("res/background.jpg"));
@@ -96,11 +99,27 @@ public class MagicFXController implements Initializable {
 
 		gc2 = canvas2.getGraphicsContext2D();
 
-		gc2.setStroke(Color.BLACK);
+    gc2.setStroke(Color.BLACK);
 		gc2.setLineWidth(15);
 
 		gc1.setFont(Font.font("Consolas",40));
 
+    Matrix.setUpMatrix();
+    
+    gc1.drawImage(BACKGROUND, 0, 0);
+     
+    AnimationTimer timer1 = new AnimationTimer() {
+			
+			@Override
+			public void handle(long arg0) {
+				wizard.setX(wizard.getX()+2);
+				if ( wizard.getX()== 600 ) {
+					wizard.setX(0);
+				}
+			}
+		};
+		timer1.start();
+		
 //		playSound();
 //		adjustVolume();
 		
@@ -121,31 +140,41 @@ public class MagicFXController implements Initializable {
 		timer.scheduleAtFixedRate(update, 0, 10, TimeUnit.MILLISECONDS);
 		timer.scheduleAtFixedRate(render, 0, 10, TimeUnit.MILLISECONDS);
 
-		delayTimeBox=(int)(Math.random()*500);
+    delayTimeBox=(int)(Math.random()*500);
 	}
 
 	@FXML
 	public void onMouseDragged(MouseEvent event) {
+
 		gc1.lineTo(event.getX(), event.getY());
 		gc1.stroke();
 
 		gc2.lineTo(event.getX(), event.getY());
 		gc2.stroke();
+		
+		if((int)event.getX()>20 && (int)event.getX()<width-20 && (int)event.getY()>20 && (int)event.getY()<height-20 ) {
+			Matrix.fillOne((int)event.getY(), (int)event.getX());
+		}
 	}
 
 	@FXML
 	public void onMousePressed(MouseEvent event) {
+		System.out.println("press");
+		
 		gc1.beginPath();
 		gc1.moveTo(event.getX(), event.getY());
 		gc1.stroke();
-		
+
 		gc2.beginPath();
 		gc2.moveTo(event.getX(), event.getY());
 		gc2.stroke();
+		
+		gc1.drawImage(BACKGROUND, 0, 0);
 	}
 
 	@FXML
 	public void onMouseReleased(MouseEvent event) {
+    
 		canvas2.snapshot(null, wImage);
 		try {
 			ImageIO.write(SwingFXUtils.fromFXImage(wImage, null), "png", file);
@@ -157,7 +186,6 @@ public class MagicFXController implements Initializable {
 		Matrix.resizeMatrix();
 		mySVM.createHOG(Matrix.mat3);
 //		System.out.println(mySVM.predict());
-		
 		gc1.drawImage(BACKGROUND, 0, 0);
 		gc2.clearRect(0, 0, canvas2.getWidth(), canvas2.getHeight());
 	}
