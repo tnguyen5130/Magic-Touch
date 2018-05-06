@@ -26,8 +26,10 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
+import javafx.scene.input.InputEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
@@ -49,7 +51,7 @@ public class MagicFXController implements Initializable {
 	private MediaPlayer mediaPlayer;
 	private Media sound;
 	private Box tempBox;
-	private int value=10;
+	private String value="";
 	SVMTrainData mySVM=new SVMTrainData();
 	private ScheduledExecutorService timer;
 	
@@ -69,7 +71,9 @@ public class MagicFXController implements Initializable {
 	private Button setting;
 	@FXML
 	private AnchorPane content;
-
+	@FXML
+	private TextField textField;
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		width = (int) canvas1.getWidth();
@@ -153,6 +157,13 @@ public class MagicFXController implements Initializable {
 		gc2.clearRect(0, 0, canvas2.getWidth(), canvas2.getHeight());
 	}
 	
+	@FXML
+	public void setValueText() {
+		value=textField.getText();
+		textField.setText("");
+		System.out.println("action");
+	}
+	
 	public void playSound() {
 		sound = new Media(new File(musicFile).toURI().toString());
 		mediaPlayer = new MediaPlayer(sound);
@@ -175,11 +186,9 @@ public class MagicFXController implements Initializable {
 			event.addBox(Math.random()*935, 0);
 			delayTimeBox=(int)(Math.random()*500);
 			count=0;
-			
+			System.out.println(event.box.size());
 		}
 		event.checkBoxApearence(this.value);
-		System.out.println(event.box.size());
-		
 	}
 	
 	public void render() {
