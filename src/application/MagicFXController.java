@@ -1,25 +1,20 @@
 package application;
-import Traindata.*;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.Scanner;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import javax.imageio.ImageIO;
-import javax.swing.plaf.synth.SynthSpinnerUI;
 
-import javafx.animation.AnimationTimer;
+import Traindata.SVMTrainData;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.embed.swing.SwingFXUtils;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
@@ -30,16 +25,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
-import javafx.scene.input.InputEvent;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 
 public class MagicFXController implements Initializable {
 
@@ -53,7 +44,6 @@ public class MagicFXController implements Initializable {
 	private MediaPlayer mediaPlayer;
 	private Media sound;
 
-	private Box tempBox;
 	private String value="";
 	SVMTrainData mySVM=new SVMTrainData();
 
@@ -108,17 +98,17 @@ public class MagicFXController implements Initializable {
     
     gc1.drawImage(BACKGROUND, 0, 0);
      
-    AnimationTimer timer1 = new AnimationTimer() {
-			
-			@Override
-			public void handle(long arg0) {
-				wizard.setX(wizard.getX()+2);
-				if ( wizard.getX()== 600 ) {
-					wizard.setX(0);
-				}
-			}
-		};
-		timer1.start();
+//    AnimationTimer timer1 = new AnimationTimer() {
+//			
+//			@Override
+//			public void handle(long arg0) {
+//				wizard.setX(wizard.getX()+2);
+//				if ( wizard.getX()== 600 ) {
+//					wizard.setX(0);
+//				}
+//			}
+//		};
+//		timer1.start();
 		
 //		playSound();
 //		adjustVolume();
@@ -184,7 +174,7 @@ public class MagicFXController implements Initializable {
 
 		Matrix.setUpMatrix();
 		Matrix.resizeMatrix();
-		mySVM.createHOG(Matrix.mat3);
+//		mySVM.createHOG(Matrix.mat3);
 //		System.out.println(mySVM.predict());
 		gc1.drawImage(BACKGROUND, 0, 0);
 		gc2.clearRect(0, 0, canvas2.getWidth(), canvas2.getHeight());
