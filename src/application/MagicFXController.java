@@ -54,6 +54,7 @@ public class MagicFXController implements Initializable {
 	private Media sound;
 
 	private Box tempBox;
+	private Wizard tempWizard;
 	private String value="";
 	SVMTrainData mySVM=new SVMTrainData();
 
@@ -61,6 +62,9 @@ public class MagicFXController implements Initializable {
 	
 	private EventController event=new EventController();
 	private int delayTimeBox;
+	private int delayTimeWizard;
+	//public double XposBox = Math.random()*935;
+	private double XposWizard = Math.random()*935;
 	private double count=0;
 	
   @FXML
@@ -86,7 +90,7 @@ public class MagicFXController implements Initializable {
 		height = (int) canvas1.getHeight();
 		
 		try {
-			BACKGROUND = new Image(new FileInputStream("res/background.jpg"));
+			BACKGROUND = new Image(new FileInputStream("res/ground.png"));
 		} catch (FileNotFoundException e1) {
 			e1.printStackTrace();
 		}
@@ -107,18 +111,19 @@ public class MagicFXController implements Initializable {
     Matrix.setUpMatrix();
     
     gc1.drawImage(BACKGROUND, 0, 0);
-     
-    AnimationTimer timer1 = new AnimationTimer() {
-			
-			@Override
-			public void handle(long arg0) {
-				wizard.setX(wizard.getX()+2);
-				if ( wizard.getX()== 600 ) {
-					wizard.setX(0);
-				}
-			}
-		};
-		timer1.start();
+   
+    event.addWizard(XposWizard,200.0);
+//    AnimationTimer timer1 = new AnimationTimer() {
+//			
+//			@Override
+//			public void handle(long arg0) {
+//				wizard.setX(wizard.getX()+2);
+//				if ( wizard.getX()== 600 ) {
+//					wizard.setX(0);
+//				}
+//			}
+//		};
+//		timer1.start();
 		
 //		playSound();
 //		adjustVolume();
@@ -141,6 +146,7 @@ public class MagicFXController implements Initializable {
 		timer.scheduleAtFixedRate(render, 0, 10, TimeUnit.MILLISECONDS);
 
     delayTimeBox=(int)(Math.random()*500);
+
 	}
 
 	@FXML
@@ -223,11 +229,15 @@ public class MagicFXController implements Initializable {
 			System.out.println(event.box.size());
 		}
 		event.checkBoxApearence(this.value);
+		//while()
+		//event.move();
+		
 	}
 	
 	public void render() {
 		gc1.drawImage(BACKGROUND, 0, 0);
 		event.drawBoxes(canvas1);
+		event.drawWizardes(canvas1);
 	}
 
 // 		canvas2.setOnKeyPressed(new EventHandler<KeyEvent>() {
