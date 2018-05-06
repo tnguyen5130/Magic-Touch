@@ -1,4 +1,5 @@
 package application;
+import Traindata.*;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -6,11 +7,13 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import javax.imageio.ImageIO;
+import javax.swing.plaf.synth.SynthSpinnerUI;
 
 import javafx.animation.AnimationTimer;
 import javafx.beans.InvalidationListener;
@@ -23,9 +26,11 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
+import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
@@ -33,6 +38,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 public class MagicFXController implements Initializable {
@@ -46,9 +52,17 @@ public class MagicFXController implements Initializable {
 	private String musicFile = "res/Theme.mp3";
 	private MediaPlayer mediaPlayer;
 	private Media sound;
-	private EventController eventController;
-	private Text text;
+
+	private Box tempBox;
+	private String value="";
+	SVMTrainData mySVM=new SVMTrainData();
+
 	private ScheduledExecutorService timer;
+	
+	private EventController event=new EventController();
+	private int delayTimeBox;
+	private double count=0;
+	
   @FXML
     private ImageView wizard;
 	// Save image //
@@ -63,7 +77,9 @@ public class MagicFXController implements Initializable {
 	private Button setting;
 	@FXML
 	private AnchorPane content;
-
+	@FXML
+	private TextField textField;
+	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		width = (int) canvas1.getWidth();
@@ -82,9 +98,12 @@ public class MagicFXController implements Initializable {
 		gc1.setLineWidth(5);
 
 		gc2 = canvas2.getGraphicsContext2D();
-		gc2.setStroke(Color.RED);
-    gc2.setLineWidth(5);
-        
+
+    gc2.setStroke(Color.BLACK);
+		gc2.setLineWidth(15);
+
+		gc1.setFont(Font.font("Consolas",40));
+
     Matrix.setUpMatrix();
     
     gc1.drawImage(BACKGROUND, 0, 0);
@@ -116,9 +135,12 @@ public class MagicFXController implements Initializable {
 				render();
 			}
 		};
+		
 		timer=Executors.newSingleThreadScheduledExecutor();
 		timer.scheduleAtFixedRate(update, 0, 10, TimeUnit.MILLISECONDS);
 		timer.scheduleAtFixedRate(render, 0, 10, TimeUnit.MILLISECONDS);
+
+    delayTimeBox=(int)(Math.random()*500);
 	}
 
 	@FXML
@@ -160,13 +182,19 @@ public class MagicFXController implements Initializable {
 			e.printStackTrace();
 		}
 
-		Matrix.resizeMatrix();
-		Matrix.display();
 		Matrix.setUpMatrix();
-
-		System.out.println("release");
+		Matrix.resizeMatrix();
+		mySVM.createHOG(Matrix.mat3);
+//		System.out.println(mySVM.predict());
 		gc1.drawImage(BACKGROUND, 0, 0);
 		gc2.clearRect(0, 0, canvas2.getWidth(), canvas2.getHeight());
+	}
+	
+	@FXML
+	public void setValueText() {
+		value=textField.getText();
+		textField.setText("");
+		System.out.println("action");
 	}
 	
 	public void playSound() {
@@ -185,32 +213,44 @@ public class MagicFXController implements Initializable {
 	}
 	
 	public void update() {
-		canvas2.setOnKeyPressed(new EventHandler<KeyEvent>() {
-			@Override
-			public void handle(KeyEvent event) {
-				switch(event.getCode())
-				{
-				case DIGIT1:
-					eventController.remove(eventController.getOb1());
-					System.out.println("KeyPress "+KeyCode.DIGIT1.toString());
-					break;
-				case DIGIT2:
-					eventController.remove(eventController.getOb2());
-					System.out.println("KeyPress "+KeyCode.DIGIT2.toString());
-					break;
-				case DIGIT3:
-					eventController.remove(eventController.getOb3());
-					System.out.println("KeyPress "+KeyCode.DIGIT3.toString());
-					break;
-				default:
-					break;
-				}
-			}
+
+		event.fallBoxes();
+		count++;
+		if(count==delayTimeBox) {
+			event.addBox(Math.random()*935, 0);
+			delayTimeBox=(int)(Math.random()*500);
+			count=0;
+			System.out.println(event.box.size());
 		}
-		);
-		
+		event.checkBoxApearence(this.value);
 	}
 	
 	public void render() {
-		}
+		gc1.drawImage(BACKGROUND, 0, 0);
+		event.drawBoxes(canvas1);
+	}
+
+// 		canvas2.setOnKeyPressed(new EventHandler<KeyEvent>() {
+// 			@Override
+// 			public void handle(KeyEvent event) {
+// 				switch(event.getCode())
+// 				{
+// 				case DIGIT1:
+// 					eventController.remove(eventController.getOb1());
+// 					System.out.println("KeyPress "+KeyCode.DIGIT1.toString());
+// 					break;
+// 				case DIGIT2:
+// 					eventController.remove(eventController.getOb2());
+// 					System.out.println("KeyPress "+KeyCode.DIGIT2.toString());
+// 					break;
+// 				case DIGIT3:
+// 					eventController.remove(eventController.getOb3());
+// 					System.out.println("KeyPress "+KeyCode.DIGIT3.toString());
+// 					break;
+// 				default:
+// 					break;
+// 				}
+// 			}
+// 		}
+// 		);
 }
