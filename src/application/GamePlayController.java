@@ -19,7 +19,7 @@ import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 
-public class MagicFXController implements Initializable{
+public class GamePlayController implements Initializable{
 	
 	@FXML
 	private Canvas canvas1;
@@ -54,13 +54,7 @@ public class MagicFXController implements Initializable{
         
         Matrix.setUpMatrix();
         
-        try {
-			background2=new Image(new FileInputStream("res/rsz_background2.jpg"));
-			
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+ 
         
         try {
 			BACKGROUND=new Image(new FileInputStream("res/Wizard_Castle.jpg"));
@@ -70,18 +64,11 @@ public class MagicFXController implements Initializable{
 			e.printStackTrace();
 		}
         
-        try {
-			Click=new Image(new FileInputStream("res/click.png"));
-			
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        
+   
       
         
-        gc1.drawImage(background2, 1, 0);
-        gc1.drawImage(Click, 10, 450);
+        gc1.drawImage(BACKGROUND, 1, 0);
+     
       
 		
 	}
@@ -115,12 +102,13 @@ public class MagicFXController implements Initializable{
 		gc1.beginPath();
 		gc1.moveTo(event.getX(), event.getY());
 		gc1.stroke();
-		gc1.drawImage(BACKGROUND, 0, 0);
+	
 		
 		gc2.beginPath();
 		gc2.moveTo(event.getX(), event.getY());
 		gc2.stroke();
 		
+		gc1.drawImage(BACKGROUND, 0, 0);
 	}
 	
 	@FXML
