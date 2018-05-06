@@ -9,8 +9,6 @@ import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
 
-import com.sun.org.apache.xerces.internal.impl.dv.xs.AnyURIDV;
-
 import javafx.animation.AnimationTimer;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
