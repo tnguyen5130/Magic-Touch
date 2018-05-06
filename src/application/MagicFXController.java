@@ -36,7 +36,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
-
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 public class MagicFXController implements Initializable {
@@ -80,7 +80,7 @@ public class MagicFXController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		width = (int) canvas1.getWidth();
 		height = (int) canvas1.getHeight();
-		eventController = new EventController();
+		event = new EventController();
 		
 		try {
 			BACKGROUND = new Image(new FileInputStream("res/background.jpg"));
