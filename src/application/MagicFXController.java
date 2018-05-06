@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 import javax.imageio.ImageIO;
 
+import javafx.animation.AnimationTimer;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.embed.swing.SwingFXUtils;
@@ -23,6 +24,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -47,6 +49,8 @@ public class MagicFXController implements Initializable {
 	private EventController eventController;
 	private Text text;
 	private ScheduledExecutorService timer;
+  @FXML
+    private ImageView wizard;
 	// Save image //
 	@FXML
 	private Canvas canvas1;
@@ -64,7 +68,6 @@ public class MagicFXController implements Initializable {
 	public void initialize(URL location, ResourceBundle resources) {
 		width = (int) canvas1.getWidth();
 		height = (int) canvas1.getHeight();
-		eventController = new EventController();
 		
 		try {
 			BACKGROUND = new Image(new FileInputStream("res/background.jpg"));
@@ -80,12 +83,26 @@ public class MagicFXController implements Initializable {
 
 		gc2 = canvas2.getGraphicsContext2D();
 		gc2.setStroke(Color.RED);
-		gc2.setLineWidth(5);
+    gc2.setLineWidth(5);
+        
+    Matrix.setUpMatrix();
+    
+    gc1.drawImage(BACKGROUND, 0, 0);
+     
+    AnimationTimer timer = new AnimationTimer() {
+			
+			@Override
+			public void handle(long arg0) {
+				wizard.setX(wizard.getX()+2);
+				if ( wizard.getX()== 600 ) {
+					wizard.setX(0);
+				}
+			}
+		};
+		timer.start();
 		
-		gc1.drawImage(BACKGROUND, 0, 0);
 //		playSound();
 //		adjustVolume();
-		System.out.print("qwerty");
 		
 		Runnable update=new Runnable() {
 			@Override
@@ -102,39 +119,50 @@ public class MagicFXController implements Initializable {
 		timer=Executors.newSingleThreadScheduledExecutor();
 		timer.scheduleAtFixedRate(update, 0, 10, TimeUnit.MILLISECONDS);
 		timer.scheduleAtFixedRate(render, 0, 10, TimeUnit.MILLISECONDS);
-
 	}
 
 	@FXML
 	public void onMouseDragged(MouseEvent event) {
+
 		gc1.lineTo(event.getX(), event.getY());
 		gc1.stroke();
 
 		gc2.lineTo(event.getX(), event.getY());
 		gc2.stroke();
+		
+		if((int)event.getX()>20 && (int)event.getX()<width-20 && (int)event.getY()>20 && (int)event.getY()<height-20 ) {
+			Matrix.fillOne((int)event.getY(), (int)event.getX());
+		}
 	}
 
 	@FXML
 	public void onMousePressed(MouseEvent event) {
 		System.out.println("press");
-
+		
 		gc1.beginPath();
 		gc1.moveTo(event.getX(), event.getY());
 		gc1.stroke();
-		System.out.print("Helo");
+
 		gc2.beginPath();
 		gc2.moveTo(event.getX(), event.getY());
 		gc2.stroke();
+		
+		gc1.drawImage(BACKGROUND, 0, 0);
 	}
 
 	@FXML
 	public void onMouseReleased(MouseEvent event) {
+    
 		canvas2.snapshot(null, wImage);
 		try {
 			ImageIO.write(SwingFXUtils.fromFXImage(wImage, null), "png", file);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
+		Matrix.resizeMatrix();
+		Matrix.display();
+		Matrix.setUpMatrix();
 
 		System.out.println("release");
 		gc1.drawImage(BACKGROUND, 0, 0);
