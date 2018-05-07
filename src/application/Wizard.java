@@ -38,6 +38,13 @@ public class Wizard extends Position implements Object{
 		canvas.getGraphicsContext2D().drawImage(wizardpng, xPos,yPos, wizardpng.getWidth(), wizardpng.getHeight());
 		//canvas.getGraphicsContext2D().fillText(valueText, xPos+35, yPos+28);
 	}
+	
+	public void drawupdate(Canvas canvas) {
+		double xposupdate;
+		xposupdate = Math.random()*985-50;
+		canvas.getGraphicsContext2D().drawImage(wizardpng, xposupdate,yPos, wizardpng.getWidth(), wizardpng.getHeight());
+		//canvas.getGraphicsContext2D().fillText(valueText, xPos+35, yPos+28);
+	}
 
 	public void moveRight() {
 		xPos += 1;
