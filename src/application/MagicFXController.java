@@ -67,7 +67,7 @@ public class MagicFXController implements Initializable {
 	private double XposWizard = Math.random()*935;
 	private double count=0;
 	
-  @FXML
+	@FXML
     private ImageView wizard;
 	// Save image //
 	@FXML
@@ -83,6 +83,8 @@ public class MagicFXController implements Initializable {
 	private AnchorPane content;
 	@FXML
 	private TextField textField;
+	@FXML
+	private Text idscore;
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -132,6 +134,7 @@ public class MagicFXController implements Initializable {
 			@Override
 			public void run() {
 				update();
+				updateScore();
 			}
 		};
 		Runnable render=new Runnable() {
@@ -190,7 +193,7 @@ public class MagicFXController implements Initializable {
 
 		Matrix.setUpMatrix();
 		Matrix.resizeMatrix();
-		mySVM.createHOG(Matrix.mat3);
+	//	mySVM.createHOG(Matrix.mat3);
 //		System.out.println(mySVM.predict());
 		gc1.drawImage(BACKGROUND, 0, 0);
 		gc2.clearRect(0, 0, canvas2.getWidth(), canvas2.getHeight());
@@ -238,6 +241,10 @@ public class MagicFXController implements Initializable {
 		gc1.drawImage(BACKGROUND, 0, 0);
 		event.drawBoxes(canvas1);
 		event.drawWizardes(canvas1);
+	}
+	
+	public void updateScore () {
+		idscore.setText("Score : " + event.getScore());
 	}
 
 // 		canvas2.setOnKeyPressed(new EventHandler<KeyEvent>() {

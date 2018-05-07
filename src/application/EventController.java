@@ -10,6 +10,7 @@ public class EventController {
 	public Box tempBox;
 	public ArrayList<Wizard> wizard = new ArrayList<Wizard>();
 	public Wizard tempWizard;
+	public int score;
 	
 	public void addBox(double x,double y) {
 		box.add(new Box(x,y));
@@ -26,6 +27,7 @@ public class EventController {
 			if(box.get(0).valueText.equals(valueText) || box.get(0).yPos>EnumSprite.HEIGHT.getValue()) 
 			{
 				box.remove(box.get(0));
+				score++;
 			}
 		}
 	}
@@ -62,5 +64,9 @@ public class EventController {
 			else 
 				w.moveRight();
 		}
+	}
+	
+	public int getScore() {
+			return score;
 	}
 }
