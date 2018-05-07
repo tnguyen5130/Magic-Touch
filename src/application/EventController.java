@@ -24,11 +24,15 @@ public class EventController {
 	
 	public void checkBoxApearence(String valueText) {
 		if(box.size()>0) {
-			if(box.get(0).valueText.equals(valueText) || box.get(0).yPos>EnumSprite.HEIGHT.getValue()) 
+			if(box.get(0).valueText.equals(valueText) ) 
 			{
 				box.remove(box.get(0));
 				score++;
 			}
+			if ( box.get(0).yPos>EnumSprite.HEIGHT.getValue()) {
+				box.remove(box.get(0));
+			}
+			
 		}
 	}
 	
