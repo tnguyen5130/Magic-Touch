@@ -21,11 +21,7 @@
          </children>
       </HBox>
 
-      <ImageView fx:id="wizard" fitHeight="106.0" fitWidth="126.0" layoutX="150.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../res/trans2.gif" />
-         </image>
-      </ImageView>
+      
       <AnchorPane fx:id="content" prefHeight="720.0" prefWidth="985.0">
          <children>
             <Button fx:id="setting" contentDisplay="GRAPHIC_ONLY" layoutX="861.0" layoutY="34.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="69.0" styleClass="setting-button" stylesheets="@MagicFX.css">

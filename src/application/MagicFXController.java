@@ -232,6 +232,8 @@ public class MagicFXController implements Initializable {
 			System.out.println(event.box.size());
 		}
 		event.checkBoxApearence(this.value);
+		//System.out.println("cac");
+		//event.drawWizardes(canvas1);
 		//while()
 		//event.move();
 		
