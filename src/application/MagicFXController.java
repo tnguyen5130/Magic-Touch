@@ -134,7 +134,6 @@ public class MagicFXController implements Initializable {
 			@Override
 			public void run() {
 				update();
-				updateScore();
 			}
 		};
 		Runnable render=new Runnable() {
@@ -232,6 +231,7 @@ public class MagicFXController implements Initializable {
 			System.out.println(event.box.size());
 		}
 		event.checkBoxApearence(this.value);
+		idscore.setText("Score : " + event.getScore()); //update score
 		//while()
 		//event.move();
 		
@@ -243,10 +243,6 @@ public class MagicFXController implements Initializable {
 		event.drawWizardes(canvas1);
 	}
 	
-	public void updateScore () {
-		idscore.setText("Score : " + event.getScore());
-	}
-
 // 		canvas2.setOnKeyPressed(new EventHandler<KeyEvent>() {
 // 			@Override
 // 			public void handle(KeyEvent event) {

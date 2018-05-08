@@ -48,7 +48,7 @@ public class EventController {
 	
 	public void drawWizardes(Canvas canvas) {
 		for(Wizard w:wizard) {
-			w.drawupdate(canvas);
+			w.draw(canvas);
 		}
 	}
 	

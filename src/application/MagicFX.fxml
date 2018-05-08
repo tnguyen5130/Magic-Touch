@@ -5,8 +5,6 @@
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
@@ -21,11 +19,6 @@
          </children>
       </HBox>
 
-      <ImageView fx:id="wizard" fitHeight="106.0" fitWidth="126.0" layoutX="150.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../res/trans2.gif" />
-         </image>
-      </ImageView>
       <AnchorPane fx:id="content" prefHeight="720.0" prefWidth="985.0">
          <children>
             <Button fx:id="setting" contentDisplay="GRAPHIC_ONLY" layoutX="861.0" layoutY="34.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="69.0" styleClass="setting-button" stylesheets="@MagicFX.css">
@@ -35,9 +28,9 @@
             </Button>
             <Slider fx:id="volumeSlider" layoutX="714.0" layoutY="141.0" prefHeight="32.0" prefWidth="250.0" />
             <TextField fx:id="textField" layoutX="47.0" layoutY="659.0" onAction="#setValueText" />
-            <Text fx:id="idscore" layoutX="756.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Score : " wrappingWidth="131.4700927734375">
+            <Text fx:id="idscore" fill="#1827ee" layoutX="756.0" layoutY="206.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Score : " wrappingWidth="171.4700927734375">
                <font>
-                  <Font name="System Bold Italic" size="27.0" />
+                  <Font name="Arial Black" size="27.0" />
                </font>
             </Text>
          </children>
