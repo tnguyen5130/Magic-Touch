@@ -1,4 +1,5 @@
 package application;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -27,6 +28,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
@@ -44,23 +46,21 @@ public class MagicFXController implements Initializable {
 	private MediaPlayer mediaPlayer;
 	private Media sound;
 
-	private String value="";
-	SVMTrainData mySVM=new SVMTrainData();
+	private String value = "";
+	SVMTrainData mySVM = new SVMTrainData();
 
-	private ScheduledExecutorService timer;
-	
-	private EventController event=new EventController();
+	public ScheduledExecutorService timer;
+
+	private EventController event = new EventController();
 	private int delayTimeBox;
-	private double count=0;
-	
-  @FXML
-    private ImageView wizard;
-	// Save image //
+	private double count = 0;
+
 	@FXML
-	private Canvas canvas1;
-	// Background only // 
+	private ImageView wizard;
 	@FXML
-	private Canvas canvas2;
+	private Canvas canvas1;              // Save image //
+	@FXML
+	private Canvas canvas2;              // Background only //
 	@FXML
 	private Slider volumeSlider;
 	@FXML
@@ -69,18 +69,23 @@ public class MagicFXController implements Initializable {
 	private AnchorPane content;
 	@FXML
 	private TextField textField;
-	
+    @FXML
+    private Pane ContentArea2;
+
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		ContentArea2.setVisible(false);
+		
 		width = (int) canvas1.getWidth();
 		height = (int) canvas1.getHeight();
-		
+
 		try {
 			BACKGROUND = new Image(new FileInputStream("res/background.jpg"));
 		} catch (FileNotFoundException e1) {
 			e1.printStackTrace();
 		}
-		
+
 		wImage = new WritableImage(width, height);
 
 		gc1 = canvas1.getGraphicsContext2D();
@@ -89,48 +94,35 @@ public class MagicFXController implements Initializable {
 
 		gc2 = canvas2.getGraphicsContext2D();
 
-    gc2.setStroke(Color.BLACK);
+		gc2.setStroke(Color.BLACK);
 		gc2.setLineWidth(15);
 
-		gc1.setFont(Font.font("Consolas",40));
+		gc1.setFont(Font.font("Consolas", 40));
 
-    Matrix.setUpMatrix();
-    
-    gc1.drawImage(BACKGROUND, 0, 0);
-     
-//    AnimationTimer timer1 = new AnimationTimer() {
-//			
-//			@Override
-//			public void handle(long arg0) {
-//				wizard.setX(wizard.getX()+2);
-//				if ( wizard.getX()== 600 ) {
-//					wizard.setX(0);
-//				}
-//			}
-//		};
-//		timer1.start();
-		
-//		playSound();
-//		adjustVolume();
-		
-		Runnable update=new Runnable() {
+		Matrix.setUpMatrix();
+
+		gc1.drawImage(BACKGROUND, 0, 0);
+
+		// playSound();
+		// adjustVolume();
+
+		Runnable update = new Runnable() {
 			@Override
 			public void run() {
-				update();
+			update();
 			}
 		};
-		Runnable render=new Runnable() {
+		Runnable render = new Runnable() {
 			@Override
 			public void run() {
 				render();
 			}
 		};
-		
-		timer=Executors.newSingleThreadScheduledExecutor();
+
+		timer = Executors.newSingleThreadScheduledExecutor();
 		timer.scheduleAtFixedRate(update, 0, 10, TimeUnit.MILLISECONDS);
 		timer.scheduleAtFixedRate(render, 0, 10, TimeUnit.MILLISECONDS);
-
-    delayTimeBox=(int)(Math.random()*500);
+		delayTimeBox = (int) (Math.random() * 500);
 	}
 
 	@FXML
@@ -141,16 +133,17 @@ public class MagicFXController implements Initializable {
 
 		gc2.lineTo(event.getX(), event.getY());
 		gc2.stroke();
-		
-		if((int)event.getX()>20 && (int)event.getX()<width-20 && (int)event.getY()>20 && (int)event.getY()<height-20 ) {
-			Matrix.fillOne((int)event.getY(), (int)event.getX());
+
+		if ((int) event.getX() > 20 && (int) event.getX() < width - 20 && (int) event.getY() > 20
+				&& (int) event.getY() < height - 20) {
+			Matrix.fillOne((int) event.getY(), (int) event.getX());
 		}
 	}
 
 	@FXML
 	public void onMousePressed(MouseEvent event) {
 		System.out.println("press");
-		
+
 		gc1.beginPath();
 		gc1.moveTo(event.getX(), event.getY());
 		gc1.stroke();
@@ -158,13 +151,13 @@ public class MagicFXController implements Initializable {
 		gc2.beginPath();
 		gc2.moveTo(event.getX(), event.getY());
 		gc2.stroke();
-		
+
 		gc1.drawImage(BACKGROUND, 0, 0);
 	}
 
 	@FXML
 	public void onMouseReleased(MouseEvent event) {
-    
+
 		canvas2.snapshot(null, wImage);
 		try {
 			ImageIO.write(SwingFXUtils.fromFXImage(wImage, null), "png", file);
@@ -174,24 +167,25 @@ public class MagicFXController implements Initializable {
 
 		Matrix.setUpMatrix();
 		Matrix.resizeMatrix();
-//		mySVM.createHOG(Matrix.mat3);
-//		System.out.println(mySVM.predict());
+		// mySVM.createHOG(Matrix.mat3);
+		// System.out.println(mySVM.predict());
 		gc1.drawImage(BACKGROUND, 0, 0);
 		gc2.clearRect(0, 0, canvas2.getWidth(), canvas2.getHeight());
 	}
-	
+
 	@FXML
 	public void setValueText() {
-		value=textField.getText();
+		value = textField.getText();
 		textField.setText("");
 		System.out.println("action");
 	}
-	
+
 	public void playSound() {
 		sound = new Media(new File(musicFile).toURI().toString());
 		mediaPlayer = new MediaPlayer(sound);
 		mediaPlayer.play();
 	}
+
 	public void adjustVolume() {
 		volumeSlider.setValue(mediaPlayer.getVolume() * 100);
 		volumeSlider.valueProperty().addListener(new InvalidationListener() {
@@ -201,46 +195,33 @@ public class MagicFXController implements Initializable {
 			}
 		});
 	}
-	
+
 	public void update() {
 
 		event.fallBoxes();
 		count++;
-		if(count==delayTimeBox) {
-			event.addBox(Math.random()*935, 0);
-			delayTimeBox=(int)(Math.random()*500);
-			count=0;
+		if (count == delayTimeBox) {
+			event.addBox(Math.random() * 935, 0);
+			delayTimeBox = (int) (Math.random() * 500);
+			count = 0;
 			System.out.println(event.box.size());
 		}
 		event.checkBoxApearence(this.value);
+		checkGame();
 	}
-	
+
 	public void render() {
 		gc1.drawImage(BACKGROUND, 0, 0);
 		event.drawBoxes(canvas1);
 	}
-
-// 		canvas2.setOnKeyPressed(new EventHandler<KeyEvent>() {
-// 			@Override
-// 			public void handle(KeyEvent event) {
-// 				switch(event.getCode())
-// 				{
-// 				case DIGIT1:
-// 					eventController.remove(eventController.getOb1());
-// 					System.out.println("KeyPress "+KeyCode.DIGIT1.toString());
-// 					break;
-// 				case DIGIT2:
-// 					eventController.remove(eventController.getOb2());
-// 					System.out.println("KeyPress "+KeyCode.DIGIT2.toString());
-// 					break;
-// 				case DIGIT3:
-// 					eventController.remove(eventController.getOb3());
-// 					System.out.println("KeyPress "+KeyCode.DIGIT3.toString());
-// 					break;
-// 				default:
-// 					break;
-// 				}
-// 			}
-// 		}
-// 		);
+	public void checkGame() {
+		// GAMEOVER
+		if(event.box.size()>0) {
+		if(event.box.get(0).yPos > EnumSprite.HEIGHT.getValue())
+		{
+			ContentArea2.setVisible(true);
+			timer.shutdown();
+		}
+		}
+	}
 }

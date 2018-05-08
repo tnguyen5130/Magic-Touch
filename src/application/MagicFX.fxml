@@ -9,6 +9,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 
 <AnchorPane onMouseDragged="#onMouseDragged" onMousePressed="#onMousePressed" onMouseReleased="#onMouseReleased" prefHeight="720.0" prefWidth="985.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MagicFXController">
    <children>
@@ -18,12 +19,6 @@
             <Canvas fx:id="canvas2" height="720.0" width="985.0" />
          </children>
       </HBox>
-
-      <ImageView fx:id="wizard" fitHeight="106.0" fitWidth="126.0" layoutX="150.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../res/trans2.gif" />
-         </image>
-      </ImageView>
       <AnchorPane fx:id="content" prefHeight="720.0" prefWidth="985.0">
          <children>
             <Button fx:id="setting" contentDisplay="GRAPHIC_ONLY" layoutX="861.0" layoutY="34.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="69.0" styleClass="setting-button" stylesheets="@MagicFX.css">
@@ -33,6 +28,26 @@
             </Button>
             <Slider fx:id="volumeSlider" layoutX="714.0" layoutY="141.0" prefHeight="32.0" prefWidth="250.0" />
             <TextField fx:id="textField" layoutX="47.0" layoutY="659.0" onAction="#setValueText" />
+            <Pane fx:id="ContentArea2" prefHeight="720.0" prefWidth="986.0">
+               <children>
+                  <ImageView fitHeight="723.0" fitWidth="989.0" layoutX="-1.0" layoutY="-3.0" pickOnBounds="true" preserveRatio="true" />
+                  <ImageView fitHeight="169.0" fitWidth="200.0" layoutX="154.0" layoutY="344.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../res/score-icon-8.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="324.0" fitWidth="353.0" layoutX="326.0" layoutY="254.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../res/loser-score-board.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="239.0" fitWidth="415.0" layoutX="260.0" layoutY="115.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../res/congratulations-png-15.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
          </children>
       </AnchorPane>
 

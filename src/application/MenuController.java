@@ -15,10 +15,8 @@ public class MenuController {
     private Pane rootpane;
     @FXML
     private Button button;
-    
     @FXML
     void onMouseClick(MouseEvent event) {
-    	System.out.println("pressed");
     	AnchorPane pane;
 		try {
 			pane = FXMLLoader.load((getClass().getResource("MagicFX.fxml")));
