@@ -38,6 +38,9 @@ public class Box extends Position implements Object{
 	}
 
 	public void move() {
-		yPos += 1;
+		yPos += 1 ;
+	}
+	public void stop() {
+		yPos += 0;
 	}
 }

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="152.0" prefWidth="274.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.PauseController">
+   <children>
+      <Pane fx:id="rootpane" prefHeight="152.0" prefWidth="274.0">
+         <children>
+            <ImageView fitHeight="152.0" fitWidth="274.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icon/pause_panel.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="resume" fitHeight="71.0" fitWidth="66.0" layoutX="176.0" layoutY="41.0" onMouseClicked="#onMouseClick1" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icon/pause_button_resume_pressed.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="retry" fitHeight="71.0" fitWidth="66.0" layoutX="106.0" layoutY="41.0" onMouseClicked="#onMouseClick2" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icon/pause_button_retry_pressed.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="exit" fitHeight="72.0" fitWidth="66.0" layoutX="35.0" layoutY="41.0" onMouseClicked="#onMouseClick3" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icon/pause_button_exit_pressed.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>

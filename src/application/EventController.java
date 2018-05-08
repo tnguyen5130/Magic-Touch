@@ -41,6 +41,11 @@ public class EventController {
 			b.move();
 		}
 	}
+	public void stopBoxes() {
+		for(Box b:box) {
+			b.stop();
+		}
+	}
 	
 	public void addWizard(double x,double y) {
 		wizard.add(new Wizard(x,y));

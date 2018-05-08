@@ -21,7 +21,9 @@ import javafx.beans.Observable;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
@@ -35,6 +37,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
@@ -52,20 +55,23 @@ public class MagicFXController implements Initializable {
 	private String musicFile = "res/Theme.mp3";
 	private MediaPlayer mediaPlayer;
 	private Media sound;
-
+	private PauseController test = new PauseController() ; 
 	private Box tempBox;
 	private Wizard tempWizard;
 	private String value="";
 	SVMTrainData mySVM=new SVMTrainData();
 
-	private ScheduledExecutorService timer;
+	private ScheduledExecutorService timer1,timer2;
 	
 	private EventController event=new EventController();
 	private int delayTimeBox;
 	private int delayTimeWizard;
+	public static int testing1 = 0;
+	public static int testing2 = 0;
 	//public double XposBox = Math.random()*935;
 	private double XposWizard = Math.random()*935;
 	private double count=0;
+	Parent fxml;
 	
 	@FXML
     private ImageView wizard;
@@ -74,7 +80,7 @@ public class MagicFXController implements Initializable {
 	private Canvas canvas1;
 	// Background only // 
 	@FXML
-	private Canvas canvas2;
+	private  Canvas canvas2;
 	@FXML
 	private Slider volumeSlider;
 	@FXML
@@ -85,9 +91,26 @@ public class MagicFXController implements Initializable {
 	private TextField textField;
 	@FXML
 	private Text idscore;
+
+    @FXML
+    private Pane contentArea;
+
+    @FXML
+    private Pane ContentArea1;
+    @FXML
+    private ImageView resume;
+
+    @FXML
+    private ImageView retry;
+
+    @FXML
+    private ImageView exit;
+
+	
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		ContentArea1.setVisible(false);
 		width = (int) canvas1.getWidth();
 		height = (int) canvas1.getHeight();
 		
@@ -130,24 +153,31 @@ public class MagicFXController implements Initializable {
 //		playSound();
 //		adjustVolume();
 		
-		Runnable update=new Runnable() {
+	Runnable update=new Runnable() {
 			@Override
 			public void run() {
+				if( testing1 == 0) {
 				update();
 				updateScore();
+//				if(testing2 == 1) {
+//					contentArea.getChildren().remove(fxml);
+//					testing2 = 0 ; 
+//				  }
+				}
 			}
 		};
 		Runnable render=new Runnable() {
 			@Override
 			public void run() {
+			
 				render();
 			}
+			
 		};
 		
-		timer=Executors.newSingleThreadScheduledExecutor();
-		timer.scheduleAtFixedRate(update, 0, 10, TimeUnit.MILLISECONDS);
-		timer.scheduleAtFixedRate(render, 0, 10, TimeUnit.MILLISECONDS);
-
+		timer1=Executors.newSingleThreadScheduledExecutor();
+		timer1.scheduleAtFixedRate(update, 0, 10, TimeUnit.MILLISECONDS);
+		timer1.scheduleAtFixedRate(render, 0, 10, TimeUnit.MILLISECONDS);
     delayTimeBox=(int)(Math.random()*500);
 
 	}
@@ -164,6 +194,7 @@ public class MagicFXController implements Initializable {
 		if((int)event.getX()>20 && (int)event.getX()<width-20 && (int)event.getY()>20 && (int)event.getY()<height-20 ) {
 			Matrix.fillOne((int)event.getY(), (int)event.getX());
 		}
+		
 	}
 
 	@FXML
@@ -179,6 +210,10 @@ public class MagicFXController implements Initializable {
 		gc2.stroke();
 		
 		gc1.drawImage(BACKGROUND, 0, 0);
+//		if(test.checkbutton == true) {
+//			contentArea.getChildren().remove(fxml);
+//			//testing2 = 0 ; 
+//		  }
 	}
 
 	@FXML
@@ -222,7 +257,7 @@ public class MagicFXController implements Initializable {
 	}
 	
 	public void update() {
-
+		
 		event.fallBoxes();
 		count++;
 		if(count==delayTimeBox) {
@@ -232,6 +267,9 @@ public class MagicFXController implements Initializable {
 			System.out.println(event.box.size());
 		}
 		event.checkBoxApearence(this.value);
+//		if (test.checkbutton == true ) {
+//			contentArea.getChildren().remove(test);
+//		}
 		//while()
 		//event.move();
 		
@@ -245,6 +283,30 @@ public class MagicFXController implements Initializable {
 	
 	public void updateScore () {
 		idscore.setText("Score : " + event.getScore());
+	}
+	public void restart() {
+		
+		Runnable update1=new Runnable() {
+			@Override
+			public void run() {
+				
+				update();
+				updateScore();
+				
+			}
+		};
+		Runnable render1=new Runnable() {
+			@Override
+			public void run() {
+				
+				render();
+				
+			}
+		};
+		timer1.shutdown();
+		timer1=Executors.newSingleThreadScheduledExecutor();
+		timer1.scheduleAtFixedRate(update1, 0, 10, TimeUnit.MILLISECONDS);
+		timer1.scheduleAtFixedRate(render1, 0, 10, TimeUnit.MILLISECONDS);
 	}
 
 // 		canvas2.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -270,4 +332,47 @@ public class MagicFXController implements Initializable {
 // 			}
 // 		}
 // 		);
+
+	  @FXML
+	    void onMouseClickedSetting(MouseEvent event) {
+		  System.out.println("test");
+		  ContentArea1.setVisible(true);
+		  testing1 = 1 ;
+//		  if (testing2 == 0 ) {
+//
+//		try {
+//			fxml = FXMLLoader.load(getClass().getResource("pauseGame.fxml"));
+//			contentArea.getChildren().removeAll();
+//	        contentArea.getChildren().setAll(fxml);
+//	        
+//	        testing1 = 1;
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		  }
+//		  else {
+//			contentArea.getChildren().remove(fxml);
+//			testing2 = 0 ; 
+//		  }
+	  }
+	  @FXML
+	    void onMouseExit(MouseEvent event) {
+		  System.exit(0);
+	    }
+	  @FXML
+	    void onMouseRestart(MouseEvent event) {
+
+	    }
+	    @FXML
+	    void onMouseResume(MouseEvent event) {
+	    	
+	    	ContentArea1.setVisible(false);
+	    	testing1 = 0 ;
+	    }
 }
+	  
+	
+	    
+
+

@@ -9,26 +9,27 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <AnchorPane onMouseDragged="#onMouseDragged" onMousePressed="#onMousePressed" onMouseReleased="#onMouseReleased" prefHeight="720.0" prefWidth="985.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MagicFXController">
    <children>
-      <HBox prefHeight="100.0" prefWidth="200.0">
+      <HBox layoutY="-48.0" prefHeight="768.0" prefWidth="1970.0">
          <children>
             <Canvas fx:id="canvas1" height="720.0" width="985.0" />
             <Canvas fx:id="canvas2" height="720.0" width="985.0" />
          </children>
       </HBox>
 
-      <ImageView fx:id="wizard" fitHeight="106.0" fitWidth="126.0" layoutX="150.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="wizard" fitHeight="20.0" fitWidth="20.0" layoutX="150.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true" x="800.0">
          <image>
-            <Image url="@../../res/trans2.gif" />
+            <Image url="@icon/Close.png" />
          </image>
       </ImageView>
       <AnchorPane fx:id="content" prefHeight="720.0" prefWidth="985.0">
          <children>
-            <Button fx:id="setting" contentDisplay="GRAPHIC_ONLY" layoutX="861.0" layoutY="34.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="69.0" styleClass="setting-button" stylesheets="@MagicFX.css">
+            <Button fx:id="setting" contentDisplay="GRAPHIC_ONLY" layoutX="861.0" layoutY="34.0" mnemonicParsing="false" onMouseClicked="#onMouseClickedSetting" prefHeight="70.0" prefWidth="69.0" styleClass="setting-button" stylesheets="@MagicFX.css">
                <effect>
                   <DropShadow />
                </effect>
@@ -40,6 +41,31 @@
                   <Font name="System Bold Italic" size="27.0" />
                </font>
             </Text>
+            <Pane fx:id="contentArea" layoutX="340.0" layoutY="286.0" prefHeight="152.0" prefWidth="274.0" />
+            <Pane fx:id="ContentArea1" layoutX="340.0" layoutY="286.0" prefHeight="152.0" prefWidth="274.0">
+               <children>
+                  <ImageView fitHeight="152.0" fitWidth="274.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@icon/pause_panel.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="resume" fitHeight="71.0" fitWidth="66.0" layoutX="176.0" layoutY="41.0" onMouseClicked="#onMouseResume" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@icon/pause_button_resume_pressed.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="retry" fitHeight="71.0" fitWidth="66.0" layoutX="106.0" layoutY="41.0" onMouseClicked="#onMouseRestart" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@icon/pause_button_retry_pressed.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="exit" fitHeight="72.0" fitWidth="66.0" layoutX="35.0" layoutY="41.0" onMouseClicked="#onMouseExit" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@icon/pause_button_exit_pressed.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </Pane>
          </children>
       </AnchorPane>
 
