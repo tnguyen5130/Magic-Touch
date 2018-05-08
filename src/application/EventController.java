@@ -1,9 +1,17 @@
 package application;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import Gameinfo.EnumSprite;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 public class EventController {
 	public ArrayList<Box> box = new ArrayList<Box>();
@@ -24,15 +32,11 @@ public class EventController {
 	
 	public void checkBoxApearence(String valueText) {
 		if(box.size()>0) {
-			if(box.get(0).valueText.equals(valueText) ) 
+			if(box.get(0).valueText.equals(valueText)) 
 			{
 				box.remove(box.get(0));
 				score++;
 			}
-			if ( box.get(0).yPos>EnumSprite.HEIGHT.getValue()) {
-				box.remove(box.get(0));
-			}
-			
 		}
 	}
 	
