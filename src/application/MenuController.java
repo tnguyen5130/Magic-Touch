@@ -15,14 +15,25 @@ public class MenuController {
     private Pane rootpane;
     @FXML
     private Button button;
+
+    @FXML
+    public  void onMousePressed(MouseEvent event)  {
+    
+    	
+    }
+    
     @FXML
     void onMouseClick(MouseEvent event) {
+    	System.out.println("pressed");
     	AnchorPane pane;
 		try {
 			pane = FXMLLoader.load((getClass().getResource("MagicFX.fxml")));
 			rootpane.getChildren().setAll(pane);
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+    	
     }
+
 }
