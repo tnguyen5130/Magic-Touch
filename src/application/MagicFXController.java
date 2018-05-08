@@ -267,7 +267,9 @@ public class MagicFXController implements Initializable {
 			System.out.println(event.box.size());
 		}
 		event.checkBoxApearence(this.value);
-		idscore.setText("Score : " + event.getScore()); //update score
+//		if (test.checkbutton == true ) {
+//			contentArea.getChildren().remove(test);
+//		}
 		//while()
 		//event.move();
 		
@@ -307,6 +309,29 @@ public class MagicFXController implements Initializable {
 		timer1.scheduleAtFixedRate(render1, 0, 10, TimeUnit.MILLISECONDS);
 	}
 
+// 		canvas2.setOnKeyPressed(new EventHandler<KeyEvent>() {
+// 			@Override
+// 			public void handle(KeyEvent event) {
+// 				switch(event.getCode())
+// 				{
+// 				case DIGIT1:
+// 					eventController.remove(eventController.getOb1());
+// 					System.out.println("KeyPress "+KeyCode.DIGIT1.toString());
+// 					break;
+// 				case DIGIT2:
+// 					eventController.remove(eventController.getOb2());
+// 					System.out.println("KeyPress "+KeyCode.DIGIT2.toString());
+// 					break;
+// 				case DIGIT3:
+// 					eventController.remove(eventController.getOb3());
+// 					System.out.println("KeyPress "+KeyCode.DIGIT3.toString());
+// 					break;
+// 				default:
+// 					break;
+// 				}
+// 			}
+// 		}
+// 		);
 
 	  @FXML
 	    void onMouseClickedSetting(MouseEvent event) {
