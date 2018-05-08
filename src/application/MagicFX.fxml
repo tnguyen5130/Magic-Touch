@@ -13,9 +13,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane onMouseDragged="#onMouseDragged" onMousePressed="#onMousePressed" onMouseReleased="#onMouseReleased" prefHeight="720.0" prefWidth="985.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MagicFXController">
+<AnchorPane onMouseDragged="#onMouseDragged" onMousePressed="#onMousePressed" onMouseReleased="#onMouseReleased" prefHeight="720.0" prefWidth="1970.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MagicFXController">
    <children>
-      <HBox layoutY="-48.0" prefHeight="768.0" prefWidth="1970.0">
+      <HBox prefHeight="768.0" prefWidth="1970.0">
          <children>
             <Canvas fx:id="canvas1" height="720.0" width="985.0" />
             <Canvas fx:id="canvas2" height="720.0" width="985.0" />
@@ -27,7 +27,12 @@
             <Image url="@icon/Close.png" />
          </image>
       </ImageView>
-      <AnchorPane fx:id="content" prefHeight="720.0" prefWidth="985.0">
+      <ImageView fitHeight="49.0" fitWidth="76.0" pickOnBounds="true" preserveRatio="true" x="912.0" y="671.0">
+         <image>
+            <Image url="@icon/ingame_ui_chest.png" />
+         </image>
+      </ImageView>
+      <AnchorPane fx:id="content" layoutY="-14.0" prefHeight="720.0" prefWidth="985.0">
          <children>
             <Button fx:id="setting" contentDisplay="GRAPHIC_ONLY" layoutX="861.0" layoutY="34.0" mnemonicParsing="false" onMouseClicked="#onMouseClickedSetting" prefHeight="70.0" prefWidth="69.0" styleClass="setting-button" stylesheets="@MagicFX.css">
                <effect>
@@ -36,9 +41,9 @@
             </Button>
             <Slider fx:id="volumeSlider" layoutX="714.0" layoutY="141.0" prefHeight="32.0" prefWidth="250.0" />
             <TextField fx:id="textField" layoutX="47.0" layoutY="659.0" onAction="#setValueText" />
-            <Text fx:id="idscore" layoutX="756.0" layoutY="200.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Score : " wrappingWidth="131.4700927734375">
+            <Text fx:id="idscore" layoutX="10.0" layoutY="10.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="131.4700927734375" x="923.0" y="703.0">
                <font>
-                  <Font name="System Bold Italic" size="27.0" />
+                  <Font name="System Bold Italic" size="26.0" />
                </font>
             </Text>
             <Pane fx:id="contentArea" layoutX="340.0" layoutY="286.0" prefHeight="152.0" prefWidth="274.0" />
@@ -64,6 +69,55 @@
                         <Image url="@icon/pause_button_exit_pressed.png" />
                      </image>
                   </ImageView>
+               </children>
+            </Pane>
+            <Pane fx:id="EndArea" layoutX="340.0" layoutY="200.0" prefHeight="375.0" prefWidth="274.0">
+               <children>
+                  <ImageView fitHeight="375.0" fitWidth="274.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@icon/end_background_panel.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="69.0" fitWidth="204.0" layoutX="35.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@icon/shop_panel_header.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="57.0" fitWidth="123.0" layoutX="76.0" layoutY="218.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@icon/button_shop-0.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="57.0" fitWidth="51.0" layoutX="214.0" layoutY="218.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@icon/button_facebook.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="57.0" fitWidth="51.0" layoutX="14.0" layoutY="218.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@icon/insane.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="81.0" fitWidth="247.0" layoutX="14.0" layoutY="280.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@icon/button_play_pressed.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="33.0" fitWidth="36.0" layoutX="20.0" layoutY="80.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@icon/button_leaderboard.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="33.0" fitWidth="36.0" layoutX="225.0" layoutY="80.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@icon/button_achievements.png" />
+                     </image>
+                  </ImageView>
+                  <Text fx:id="idscore1" fill="#ffe356" layoutX="-851.0" layoutY="-535.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="131.4700927734375" x="923.0" y="703.0">
+                     <font>
+                        <Font name="System Bold" size="66.0" />
+                     </font>
+                  </Text>
                </children>
             </Pane>
          </children>

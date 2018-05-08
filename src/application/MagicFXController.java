@@ -55,19 +55,17 @@ public class MagicFXController implements Initializable {
 	private String musicFile = "res/Theme.mp3";
 	private MediaPlayer mediaPlayer;
 	private Media sound;
-	private PauseController test = new PauseController() ; 
-	private Box tempBox;
 	private Wizard tempWizard;
 	private String value="";
 	SVMTrainData mySVM=new SVMTrainData();
 
-	private ScheduledExecutorService timer1,timer2;
+	private ScheduledExecutorService timer1;
 	
 	private EventController event=new EventController();
 	private int delayTimeBox;
 	private int delayTimeWizard;
 	public static int testing1 = 0;
-	public static int testing2 = 0;
+	//public static int testing2 = 0;
 	//public double XposBox = Math.random()*935;
 	private double XposWizard = Math.random()*935;
 	private double count=0;
@@ -91,26 +89,29 @@ public class MagicFXController implements Initializable {
 	private TextField textField;
 	@FXML
 	private Text idscore;
-
     @FXML
     private Pane contentArea;
-
     @FXML
     private Pane ContentArea1;
     @FXML
+    private Pane EndArea;
+    @FXML
     private ImageView resume;
-
     @FXML
     private ImageView retry;
-
     @FXML
     private ImageView exit;
+
+    @FXML
+    private Text idscore1;
+
 
 	
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		ContentArea1.setVisible(false);
+		EndArea.setVisible(false);
 		width = (int) canvas1.getWidth();
 		height = (int) canvas1.getHeight();
 		
@@ -128,37 +129,23 @@ public class MagicFXController implements Initializable {
 
 		gc2 = canvas2.getGraphicsContext2D();
 
-    gc2.setStroke(Color.BLACK);
+        gc2.setStroke(Color.BLACK);
 		gc2.setLineWidth(15);
 
 		gc1.setFont(Font.font("Consolas",30));
 
-    Matrix.setUpMatrix();
+		Matrix.setUpMatrix();
     
-    gc1.drawImage(BACKGROUND, 0, 0);
+		gc1.drawImage(BACKGROUND, 0, 0);
    
-    event.addWizard(XposWizard,200.0);
-//    AnimationTimer timer1 = new AnimationTimer() {
-//			
-//			@Override
-//			public void handle(long arg0) {
-//				wizard.setX(wizard.getX()+2);
-//				if ( wizard.getX()== 600 ) {
-//					wizard.setX(0);
-//				}
-//			}
-//		};
-//		timer1.start();
-		
+		event.addWizard(XposWizard,200.0);
 //		playSound();
 //		adjustVolume();
-		
 	Runnable update=new Runnable() {
 			@Override
 			public void run() {
 				if( testing1 == 0) {
 				update();
-				updateScore();
 //				if(testing2 == 1) {
 //					contentArea.getChildren().remove(fxml);
 //					testing2 = 0 ; 
@@ -267,6 +254,8 @@ public class MagicFXController implements Initializable {
 			System.out.println(event.box.size());
 		}
 		event.checkBoxApearence(this.value);
+		updateScore();
+		checkgame();
 //		if (test.checkbutton == true ) {
 //			contentArea.getChildren().remove(test);
 //		}
@@ -282,32 +271,41 @@ public class MagicFXController implements Initializable {
 	}
 	
 	public void updateScore () {
-		idscore.setText("Score : " + event.getScore());
+		idscore.setText(" " + event.getScore());
+		idscore1.setText(" " + event.getScore());
 	}
-	public void restart() {
-		
-		Runnable update1=new Runnable() {
-			@Override
-			public void run() {
-				
-				update();
-				updateScore();
-				
+	
+	public void checkgame() {
+		if (event.box.size()>0) {
+			if (event.box.get(0).yPos>EnumSprite.HEIGHT.getValue()) {
+				EndArea.setVisible(true);
+				timer1.shutdown();
 			}
-		};
-		Runnable render1=new Runnable() {
-			@Override
-			public void run() {
-				
-				render();
-				
-			}
-		};
-		timer1.shutdown();
-		timer1=Executors.newSingleThreadScheduledExecutor();
-		timer1.scheduleAtFixedRate(update1, 0, 10, TimeUnit.MILLISECONDS);
-		timer1.scheduleAtFixedRate(render1, 0, 10, TimeUnit.MILLISECONDS);
+		}
 	}
+//	public void restart() {
+//		
+//		Runnable update1=new Runnable() {
+//			@Override
+//			public void run() {
+//				
+//				update();
+//				
+//			}
+//		};
+//		Runnable render1=new Runnable() {
+//			@Override
+//			public void run() {
+//				
+//				render();
+//				
+//			}
+//		};
+//		timer1.shutdown();
+//		timer1=Executors.newSingleThreadScheduledExecutor();
+//		timer1.scheduleAtFixedRate(update1, 0, 10, TimeUnit.MILLISECONDS);
+//		timer1.scheduleAtFixedRate(render1, 0, 10, TimeUnit.MILLISECONDS);
+//	}
 
 // 		canvas2.setOnKeyPressed(new EventHandler<KeyEvent>() {
 // 			@Override
@@ -371,8 +369,3 @@ public class MagicFXController implements Initializable {
 	    	testing1 = 0 ;
 	    }
 }
-	  
-	
-	    
-
-

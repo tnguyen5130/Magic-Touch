@@ -1,7 +1,6 @@
 package application;
 import org.opencv.core.Core;
 
-import Gameinfo.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -22,6 +21,14 @@ public class Main extends Application {
 			primaryStage.setResizable(false);
 			primaryStage.setTitle("Magic Wand");
 			primaryStage.getIcons().add(new Image(Main.class.getResourceAsStream("icon/icon.png")));
+//			primaryStage.setOnCloseRequest((EventHandler<WindowEvent>) new EventHandler<Event>() {
+//				@Override
+//				public void handle(Event event) {
+//					// TODO Auto-generated method stub
+//					Platform.exit();
+//					System.exit(0);
+//				}
+//			});
 			primaryStage.show();
 
 		} catch (Exception e) {

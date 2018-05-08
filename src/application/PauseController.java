@@ -23,7 +23,6 @@ public class PauseController   {
     	MagicFXController.testing1 = 0 ;
     	//MagicFXController.testing2 = 1 ;
     	checkbutton= true;
-    	System.out.println(MagicFXController.testing2);
     }
 
     @FXML

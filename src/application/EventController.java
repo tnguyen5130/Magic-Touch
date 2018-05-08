@@ -29,9 +29,6 @@ public class EventController {
 				box.remove(box.get(0));
 				score++;
 			}
-			if ( box.get(0).yPos>EnumSprite.HEIGHT.getValue()) {
-				box.remove(box.get(0));
-			}
 			
 		}
 	}
