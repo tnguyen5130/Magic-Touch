@@ -13,7 +13,7 @@ import org.opencv.core.Size;
 import org.opencv.imgcodecs.Imgcodecs;
 import org.opencv.imgproc.Imgproc;
 
-public class Matrix {
+public class MatrixTrain {
 	private static int height = EnumSprite.HEIGHT.getValue();
 	private static int width = EnumSprite.WIDTH.getValue();
 	private static int size=20;

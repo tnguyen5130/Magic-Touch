@@ -1,5 +1,4 @@
 package Traindata;
-import Gameinfo.*;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfFloat;
 import org.opencv.core.Size;

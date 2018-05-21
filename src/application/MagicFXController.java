@@ -92,7 +92,7 @@ public class MagicFXController implements Initializable {
     @FXML
     private Pane contentArea;
     @FXML
-    private Pane ContentArea1;
+    private Pane contentArea1;
     @FXML
     private Pane EndArea;
     @FXML
@@ -110,7 +110,7 @@ public class MagicFXController implements Initializable {
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		ContentArea1.setVisible(false);
+		contentArea1.setVisible(false);
 		EndArea.setVisible(false);
 		width = (int) canvas1.getWidth();
 		height = (int) canvas1.getHeight();
@@ -332,9 +332,9 @@ public class MagicFXController implements Initializable {
 // 		);
 
 	  @FXML
-	    void onMouseClickedSetting(MouseEvent event) {
+	    public void onMouseClickedSetting(MouseEvent event) {
 		  System.out.println("test");
-		  ContentArea1.setVisible(true);
+		  contentArea1.setVisible(true);
 		  testing1 = 1 ;
 //		  if (testing2 == 0 ) {
 //
@@ -355,17 +355,17 @@ public class MagicFXController implements Initializable {
 //		  }
 	  }
 	  @FXML
-	    void onMouseExit(MouseEvent event) {
+	    public void onMouseExit(MouseEvent event) {
 		  System.exit(0);
 	    }
 	  @FXML
-	    void onMouseRestart(MouseEvent event) {
+	    public void onMouseRestart(MouseEvent event) {
 
 	    }
 	    @FXML
-	    void onMouseResume(MouseEvent event) {
+	    public void onMouseResume(MouseEvent event) {
 	    	
-	    	ContentArea1.setVisible(false);
+	    	contentArea1.setVisible(false);
 	    	testing1 = 0 ;
 	    }
 }
